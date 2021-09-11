@@ -263,7 +263,9 @@ class ShelleyTools:
         # Parse the UTXOs into a list of dict objects
         utxos = []
         for utxo_line in raw_utxos:
+            print(utxo_line)
             vals = utxo_line.split()
+            print(vals)
             utxo_dict = {
                 "TxHash": vals[0],
                 "TxIx": vals[1],
@@ -273,12 +275,16 @@ class ShelleyTools:
             # Extra tokens will be separated by a "+" sign.
             extra = [i for i, j in enumerate(vals) if j == "+"]
             for i in extra:
-                asset = vals[i + 2]
-                amt = vals[i + 1]
-                if asset in utxo_dict:
-                    utxo_dict[asset] += amt
-                else:
-                    utxo_dict[asset] = amt
+                try:
+                    asset = vals[i + 2]
+                    amt = vals[i + 1]
+                    if asset in utxo_dict:
+                        utxo_dict[asset] += amt
+                    else:
+                        utxo_dict[asset] = amt
+                except:
+                    print("skipping alonzo extra datum")
+                
             utxos.append(utxo_dict)
 
         # Filter utxos
