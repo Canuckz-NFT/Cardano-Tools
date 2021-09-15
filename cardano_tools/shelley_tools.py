@@ -263,9 +263,7 @@ class ShelleyTools:
         # Parse the UTXOs into a list of dict objects
         utxos = []
         for utxo_line in raw_utxos:
-            print(utxo_line)
             vals = utxo_line.split()
-            print(vals)
             utxo_dict = {
                 "TxHash": vals[0],
                 "TxIx": vals[1],
